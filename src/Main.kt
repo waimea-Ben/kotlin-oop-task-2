@@ -1,3 +1,5 @@
+import kotlin.math.floor
+
 /**
  * ================================================
  * Task 2 - Gnome Fight Club
@@ -143,14 +145,20 @@ class Gnome(val name: String, var strength: Int) {
      *   NAME: dead!
      */
     fun info(): String {
-        return ""
+        return if (health != 100) {
+            "$name: dead!"
+        } else{
+            "$name: strength $strength, health $health"
+        }
     }
 
     /**
      * A gnome is alive if its health > zero
      */
     fun alive(): Boolean {
-        return false
+        return if (health > 0) {
+            true
+        } else false
     }
 
     /**
@@ -161,7 +169,8 @@ class Gnome(val name: String, var strength: Int) {
      */
     fun train(numHours: Int) {
         println("$name trains for $numHours hours...")
-
+        strength += floor(numHours / 2.0).toInt()
+        if (strength > 10) strength = 10
 
     }
 
@@ -174,7 +183,16 @@ class Gnome(val name: String, var strength: Int) {
      */
     fun fight(opponent: Gnome) {
         println("$name vs ${opponent.name}...")
+        if (opponent.health == 0 || health == 0) {
+            health = health
 
+        }
+        else {
+            health -= opponent.strength * 5
+            opponent.health -= strength * 5
+            if (health < 0) health = 0
+            if (opponent.health < 0) opponent.health = 0
+        }
 
     }
 
