@@ -197,4 +197,3 @@ class Gnome(val name: String, var strength: Int) {
     }
 
 }
-
